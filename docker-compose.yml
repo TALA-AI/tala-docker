@@ -1,0 +1,46 @@
+# version: '3.8'
+
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    networks:
+      - my_network
+    env_file:
+      - .env
+    volumes:
+      - ./data:/home/ibmuser03/tala-docker/data  # Add this line to mount the data directory
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: streamlit_app
+    ports:
+      - "8501:8501"
+    networks:
+      - my_network
+    env_file:
+      - .env
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_server
+    ports:
+      - "80:80"
+    volumes:
+      - ./web:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - fastapi
+      - streamlit
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge

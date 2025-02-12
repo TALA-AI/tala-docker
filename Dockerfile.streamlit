@@ -1,0 +1,8 @@
+# Streamlit 실행 환경
+FROM python:3.10
+
+WORKDIR /streamlit_app
+COPY streamlit_app /streamlit_app
+RUN pip install --no-cache-dir -r /streamlit_app/requirements.txt
+
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]

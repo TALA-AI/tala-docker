@@ -1,0 +1,16 @@
+fastapi
+pydantic
+python-dotenv
+pandas
+uvicorn
+pysqlite3-binary
+
+# LangChain 관련 패키지
+langchain
+langchain-huggingface
+langchain-community
+langchain_ibm
+chromadb
+
+# 임베딩 모델 (예: Hugging Face 모델 사용 시)
+sentence-transformers
